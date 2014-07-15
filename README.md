@@ -104,4 +104,4 @@ Puma has an upper limit of 100 threads, so when that limit is reached, the reply
 
 This is how long it took to do the test.
 
-![](total_test_duration.png)
+![](images/total_test_duration.png)
