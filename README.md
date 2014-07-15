@@ -2,6 +2,8 @@
 
 Testing the performance of a simple Go web application.
 
+## Code
+
 Go web application code.
 
 ```go
@@ -36,6 +38,16 @@ get "/perf" do
   "<h1>Hello Perf</h1>"
 end
 ```
+
+## Test
+
+The test uses httperf, which sends n number of requests at the same time to the server. I step through n from 10 to 1000. This means the we start off at 10 requests at the same time to the server, and incrementally add 10 requests until we reach 1000 requests sent to the server at the same time. For consistency I perform each step 10 times.
+
+## Environment
+
+I tested this on Ubuntu 14.04 as a guest running on a VirtualBox VM, with 8GB RAM and 4 VCPUs. The host OS is OS X Mavericks running on an MBP with 16GB RAM.
+
+## Results
 
 ### Connection rate per sec
 
@@ -84,6 +96,7 @@ The average time for the server to respond to a request.
 Go spins off new goroutines when needed, so the reply response time is consistent and remains the same throughout.
 
 Puma has an upper limit of 100 threads, so when that limit is reached, the reply response times increases proportionately the number of requests.
+
 
 ![](reply_time_response.png)
 
