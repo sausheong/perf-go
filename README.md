@@ -57,7 +57,7 @@ Go spins off new goroutines whenever a connection is made, so the rate of creati
 
 Puma has a min of 10 threads and a max of 100 threads so the rate of creating new connections have an upper limit. When that limit is reached, the connection rate plateaus.
 
-![](connection_rate_per_sec.png)
+![](images/connection_rate_per_sec.png)
 
 ### Connection time average
 
@@ -68,7 +68,7 @@ Go spins off new goroutines when needed, so the average connection time remains 
 Puma has an upper limit of 100 threads, when that limit is reached, the connection time slows and becomes proportionate the the number of requests.
 
 
-![](connection_time_avg.png)
+![](images/connection_time_avg.png)
 
 ### Reply rate average
 
@@ -78,7 +78,7 @@ Go spins off new goroutines when needed, so the rate of reply is consistent and 
 
 Puma has an upper limit of 100 threads, so when that limit is reached, the reply rate plateaus.
 
-![](reply_rate_avg.png)
+![](images/reply_rate_avg.png)
 
 ### Number of successful replies
 
@@ -87,7 +87,7 @@ The number of successful replies (2xx) from the server.
 Go and Puma both return success replies for all the requests.
 
 
-![](reply_status_2xx.png)
+![](images/reply_status_2xx.png)
 
 ### Reply response time
 
@@ -98,7 +98,7 @@ Go spins off new goroutines when needed, so the reply response time is consisten
 Puma has an upper limit of 100 threads, so when that limit is reached, the reply response times increases proportionately the number of requests.
 
 
-![](reply_time_response.png)
+![](images/reply_time_response.png)
 
 ### Total test duration
 
