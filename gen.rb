@@ -1,5 +1,6 @@
 require 'gruff'
 require 'json'
+require 'csv'
 
 COLOR = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#00ff", "#ff00ff"]
 def process(chart, metric)
@@ -7,7 +8,7 @@ def process(chart, metric)
   chart.each do |k, v|
     d[k.to_i] = v[metric].to_f
   end
-  return d
+  return Hash[d.sort]
 end
 
 json_array = []
@@ -44,7 +45,15 @@ metrics.each do |metric|
   chart.hide_dots = true
   chart.marker_count = 10
   processed_json.each_with_index do |json, i|
+    # write data to chart
     chart.data names[i], json.values, COLOR[i]
+    # create CSV
+    CSV.open("#{metric}_#{names[i]}.csv", "w") do |csv|      
+      json.sort.each do |a|
+        csv << a
+      end
+    end
+
   end
 
   chart.write "#{metric}.png"
