@@ -1,17 +1,12 @@
 require 'gruff'
 require 'json'
 
-NUM_POINTS = {100 => 1, 50 => 20, 25 => 40, 20 => 25, 10 => 100}
 COLOR = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#00ff", "#ff00ff"]
 def process(chart, metric)
   d = {}
   chart.each do |k, v|
     d[k.to_i] = v[metric].to_f
   end
-  d.delete_if do |k, v|
-    k % NUM_POINTS[100] != 0
-  end
-  
   return d
 end
 
@@ -23,7 +18,7 @@ Dir["*.json"].each_with_index do |file, i|
 end
 
 
-metrics = ["connection_rate_per_sec", "connection_time_avg", "total_test_duration", "reply_status_2xx"]
+metrics = ["connection_rate_per_sec", "connection_time_avg", "total_test_duration", "reply_status_2xx", "reply_rate_avg", "reply_time_response"]
 
 
 metrics.each do |metric|
@@ -33,16 +28,21 @@ metrics.each do |metric|
   end
   
   labels = {}
-  processed_json.first.keys.size.times do |i|
-    labels[i] = processed_json.first.keys[i].to_s
+  (0..1000).each do |i|    
+    if (i % 100) == 0
+      labels[i/10] = i.to_s
+    end
   end
 
   chart = Gruff::Line.new(1024)
+
   chart.theme_pastel
   chart.labels = labels
   chart.title = metric
   chart.marker_font_size = 10
-  
+  chart.line_width = 1
+  chart.hide_dots = true
+  chart.marker_count = 10
   processed_json.each_with_index do |json, i|
     chart.data names[i], json.values, COLOR[i]
   end
