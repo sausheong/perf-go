@@ -4,7 +4,7 @@ require 'json'
 STDOUT.sync = true
 results = {}
 (10..1000).step(10) do |num_connections|
-  perf = HTTPerf.new "port" => 8080, "uri" => "/perf", "num-conns" => num_connections, "rate" => num_connections
+  perf = HTTPerf.new "port" => 8080, "uri" => "/perf", "num-conns" => num_connections, "rate" => num_connections, "num-calls" => 10
   perf.parse = true  
   results[num_connections] =  perf.run    
   puts "#{num_connections} - #{results[num_connections][:total_test_duration]}s - #{results[num_connections][:reply_status_2xx]}"
