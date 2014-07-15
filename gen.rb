@@ -48,7 +48,7 @@ metrics.each do |metric|
     # write data to chart
     chart.data names[i], json.values, COLOR[i]
     # create CSV
-    CSV.open("#{metric}_#{names[i]}.csv", "w") do |csv|      
+    CSV.open("csv/#{metric}_#{names[i]}.csv", "w") do |csv|      
       json.sort.each do |a|
         csv << a
       end
@@ -56,5 +56,5 @@ metrics.each do |metric|
 
   end
 
-  chart.write "#{metric}.png"
+  chart.write "images/#{metric}.png"
 end
